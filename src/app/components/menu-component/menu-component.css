@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #222;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+}
+
+.menu a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

@@ -1,0 +1,63 @@
+<main class="teams-page">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">GESTIÓN DE EQUIPOS</p>
+      <h1>Tu catálogo de equipos</h1>
+      <p class="hero-text">
+        Consulta todos los equipos disponibles en un solo lugar.
+      </p>
+    </div>
+    <div class="team-count" aria-label="Número de equipos">
+      <strong>{{ equipos?.length || 0 }}</strong>
+      <span>equipos</span>
+    </div>
+  </section>
+
+  <section class="teams-content" aria-live="polite">
+    <div class="section-heading">
+      <div>
+        <h2>Equipos disponibles</h2>
+        <p>Selecciona un equipo para consultar sus datos.</p>
+      </div>
+    </div>
+
+    @if (equipos?.length) {
+      <div class="teams-grid">
+        @for (equipo of equipos; track $index) {
+          <article class="team-card">
+            <img class="team-image" [src]="equipo.imagen" [alt]="'Escudo del ' + equipo.nombre">
+            <div class="team-info">
+              <span class="team-label">Equipo #{{ equipo.idEquipo }}</span>
+              <h3>{{ equipo.nombre }}</h3>
+              <p class="team-description">
+                @if (isDescriptionExpanded(equipo.idEquipo) || (equipo.descripcion || '').length <= descriptionLimit) {
+                  {{ equipo.descripcion || 'Sin descripción disponible.' }}
+                } @else {
+                  {{ (equipo.descripcion || '').slice(0, descriptionLimit) }}...
+                }
+              </p>
+              @if ((equipo.descripcion || '').length > descriptionLimit) {
+                <button
+                  type="button"
+                  class="description-button"
+                  (click)="toggleDescription(equipo.idEquipo)">
+                  {{ isDescriptionExpanded(equipo.idEquipo) ? 'Ver menos' : 'Ver más' }}
+                </button>
+              }
+              <p class="champions"><span aria-hidden="true">🏆</span> {{ equipo.champions }} Champions</p>
+            </div>
+            <a class="details-button" [href]="equipo.web" target="_blank" rel="noopener noreferrer">
+              Sitio web <span>→</span>
+            </a>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <div class="empty-icon" aria-hidden="true">📋</div>
+        <h3>No hay equipos disponibles</h3>
+        <p>Cuando existan equipos, aparecerán aquí.</p>
+      </div>
+    }
+  </section>
+</main>

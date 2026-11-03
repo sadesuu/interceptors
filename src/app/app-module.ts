@@ -4,21 +4,15 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { errorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './components/error-component/error-component';
 
 @NgModule({
-  declarations: [
-    App
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  declarations: [App, ErrorComponent],
+  imports: [BrowserModule, AppRoutingModule],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(
-      withInterceptors([errorInterceptor])
-    )
+    provideHttpClient(withInterceptors([errorInterceptor])),
   ],
-  bootstrap: [App]
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}

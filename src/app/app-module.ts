@@ -2,6 +2,8 @@ import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { errorInterceptor } from './error-interceptor';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,9 @@ import { App } from './app';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
+    provideHttpClient(
+      withInterceptors([errorInterceptor])
+    )
   ],
   bootstrap: [App]
 })
